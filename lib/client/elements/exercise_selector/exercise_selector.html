@@ -1,0 +1,7 @@
+<dom-module id="exercise-selector">
+  <template>
+    <template is="dom-repeat" items="[[exercises]]">
+      <a href="javascript:undefined;" on-click="selectExercise">[[item.name]]</a>
+    </template>
+  </template>
+</dom-module>

@@ -1,0 +1,17 @@
+<dom-module id="exercise-playback">
+  <template>
+
+    <div hidden$="[[!hasExercise]]">
+      <h1>[[exercise.name]]</h1>
+
+      <strong>Keynote:</strong> <span>[[exerciseNote]]</span><br>
+
+      <button disabled$="[[isPlaying]]" on-click="play">PLAY (Enter)</button>
+      <button disabled$="[[isPlaying]]" on-click="moveUpAndPlay">Next (Space)</button>
+      <button disabled$="[[isPlaying]]" on-click="moveUp">Up ^^^</button>
+      <button disabled$="[[isPlaying]]" on-click="moveDown">Down vvv</button>
+      <button disabled$="[[isPlaying]]" on-click="reset">Reset</button>
+    </div>
+
+  </template>
+</dom-module>

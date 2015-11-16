@@ -1,4 +1,4 @@
-name: vocal-coach
+name: vocal_coach
 version: 0.0.1
 author: Matias Meno <m@tias.me>
 description: Small project to help doing vocal exercises
@@ -6,3 +6,16 @@ environment:
   sdk: '>=1.9.0 <2.0.0'
 dependencies:
   logging: ^0.11.0
+  polymer: ^1.0.0-rc.6
+  web_components: ^0.12.0
+  reflectable: ^0.3.0
+
+  test: ^0.12.5
+
+transformers:
+- web_components:
+    entry_points:
+      - web/index.html
+- reflectable:
+    entry_points:
+      - web/index.dart
