@@ -4,6 +4,8 @@
     <div hidden$="[[!hasExercise]]">
       <h1>[[exercise.name]]</h1>
 
+      Preview? <input type="checkbox" checked$="{{playPreview}}"><br>
+
       <strong>Keynote:</strong> <span>[[exerciseNote]]</span><br>
 
       <button disabled$="[[isPlaying]]" on-click="play">PLAY (Enter)</button>

@@ -16,7 +16,7 @@ class ExerciseSelector extends PolymerElement {
   var log = new Logger('$ExerciseSelector');
 
   @property
-  List<Exercise> exercises = [Exercise.triad, Exercise.birdy];
+  List<Exercise> exercises = [Exercise.triad, Exercise.birdy, Exercise.gamme, Exercise.one];
 
   @Property(notify: true)
   Exercise selectedExercise;

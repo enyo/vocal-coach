@@ -14,20 +14,22 @@ import 'package:vocal_coach/client/utils.dart';
 
 // create web audio api context
 AudioContext audioCtx = new AudioContext();
-OscillatorNode oscillator;
 
 @PolymerRegister('exercise-playback')
 class ExercisePlayback extends PolymerElement {
   ExercisePlayback.created() : super.created() {
-    document.onKeyPress.listen((KeyboardEvent event) {
+    document.onKeyUp.listen((KeyboardEvent event) {
       if (exercise != null) {
         switch (event.keyCode) {
           case KeyCode.SPACE:
-            moveUp();
+            if (_alreadyPlayed) moveUp();
             play();
             break;
           case KeyCode.ENTER:
             play();
+            break;
+          case KeyCode.ESC:
+            reset();
             break;
         }
       }
@@ -43,16 +45,32 @@ class ExercisePlayback extends PolymerElement {
   int a4;
 
   /// In seconds
-  double noteLength = 0.3;
+  @property
+  int bpm = 200;
+
+  /// ms for attack
+  int attack = 40;
+
+  /// ms for decay
+  int decay = 250;
+
+  @property
+  bool playPreview = true;
 
   @Property(computed: 'computeHasExercise(exercise)')
   bool hasExercise = false;
+
+  /// This tracks whether the exercise has already been played
+  bool _alreadyPlayed = false;
 
   @reflectable
   bool computeHasExercise([_]) => exercise != null;
 
   @Observe('exercise')
-  onExercise([_]) => reset();
+  onExercise([_]) {
+    _alreadyPlayed = false;
+    reset();
+  }
 
   @property
   bool isPlaying = false;
@@ -74,25 +92,48 @@ class ExercisePlayback extends PolymerElement {
   @reflectable
   play([_, __]) {
     if (isPlaying) return;
+    _alreadyPlayed = true;
     log.info('Playing $exercise');
     set('isPlaying', true);
 
-    oscillator = audioCtx.createOscillator();
-    oscillator.connectNode(audioCtx.destination);
-//    var gain = audioCtx.createGain();
-//    gain.gain.value = 0.0;
-//
-//    // create Oscillator node
-//    oscillator.connectNode(gain);
+    var noteLength = 1 / (int.parse('$bpm') / 60);
 
-    oscillator.type = 'sine';
+    // TODO: improve this so we simply add a note to the list with double the length
+    if (playPreview) {
+      _playNote(exercise.notes.first);
+    }
+
     exercise.notes.asMap().forEach((index, note) {
-      oscillator.frequency
-          .setValueAtTime(centsToHz((note.interval + rootInterval + exerciseInterval) * 100, a4), audioCtx.currentTime + index * noteLength);
+      if (playPreview) index += 2;
+      var noteTime = (index * noteLength * 1000).round();
+      new Timer(new Duration(milliseconds: noteTime), () => _playNote(note));
     });
-    oscillator.start(audioCtx.currentTime);
-    oscillator.stop(audioCtx.currentTime + exercise.notes.length * noteLength);
+
     new Timer(new Duration(milliseconds: (1000 * exercise.notes.length * noteLength).round()), stop);
+  }
+
+  _playNote(Note note) {
+    var gain = audioCtx.createGain();
+    gain.connectNode(audioCtx.destination);
+
+    // Create envelope
+    gain.gain.setValueAtTime(0, audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(1, audioCtx.currentTime + attack / 1000);
+    gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + decay / 1000);
+
+    var oscillator = audioCtx.createOscillator();
+    oscillator.type = 'sine';
+    oscillator.frequency.value = centsToHz((note.interval + rootInterval + exerciseInterval) * 100, a4);
+    oscillator.connectNode(gain);
+
+    var noteLength = 1 / (int.parse('$bpm') / 60);
+
+    oscillator.start(0);
+    new Timer(new Duration(milliseconds: (noteLength * 1000 + decay).round()), () {
+      oscillator.stop(0);
+      oscillator.disconnect(0);
+      gain.disconnect(0);
+    });
   }
 
   @reflectable

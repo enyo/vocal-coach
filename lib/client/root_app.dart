@@ -22,5 +22,8 @@ class RootApp extends PolymerElement {
   @property
   int a4 = 440;
 
+  @property
+  int bpm = 300;
+
   RootApp.created() : super.created();
 }

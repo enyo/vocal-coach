@@ -1,6 +1,7 @@
 library vocal_coach.exercise;
 
 import 'dart:html';
+import 'dart:svg';
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
 
@@ -18,8 +19,10 @@ const _semitones = const {
 var log = new Logger('Exercise');
 
 class Exercise extends JsProxy {
+  static var one = new Exercise.fromDegrees('One note', '1');
   static var triad = new Exercise.fromDegrees('Triad', '1 3 5 3 1');
   static var birdy = new Exercise.fromDegrees('Birdy', '1 5 3 8 5 3 1');
+  static var gamme = new Exercise.fromDegrees('Gamme', '1 3 5 8 5 3 1');
 
   /// Accepts a string of scale degrees and parses that.
   /// Example:
@@ -47,20 +50,22 @@ class Exercise extends JsProxy {
 
   Exercise(this.name, this.notes) {
     log.finer('Creating exerice "$name" with notes: $notes');
-    document.body.append(getImage())
+    var svgElement = getImage();
+    document.body.append(svgElement);
+    svgElement
       ..style.background = '#fefefe'
       ..style.margin = '10px';
   }
 
   /// Generates an SVG image for this exercise
-  Element getImage() {
+  SvgElement getImage() {
     var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     var width = 80, height = 44;
 
     var lineOffset = 10,
         lineDistance = (height - lineOffset * 2) / 4,
         noteOffset = 15,
-        noteDistance = (width - noteOffset * 2) / (notes.length - 1),
+        noteDistance = notes.length == 1 ? 0 : (width - noteOffset * 2) / (notes.length - 1),
         ellipseWidth = width / 20,
         ellipseHeight = ellipseWidth / 1.5;
 
@@ -83,10 +88,11 @@ class Exercise extends JsProxy {
       svg.append(line);
     }
 
-    // Draw the lines
+    // Draw the notes
     for (var i = 0; i < notes.length; i++) {
       var note = notes[i];
-      var noteY = height - (lineOffset + (note.degree + (note.octaves * 7)) * lineDistance / 2), noteX = noteOffset + noteDistance * i;
+      var noteY = height - (lineOffset + (note.degree + (note.octaves * 7)) * lineDistance / 2),
+          noteX = noteOffset + noteDistance * i;
       var ellipse = document.createElementNS(svgNS, 'ellipse');
 
       ellipse.setAttribute('stroke', 'rgba(0, 0, 0, 1)');
