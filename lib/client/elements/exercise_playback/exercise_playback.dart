@@ -67,10 +67,7 @@ class ExercisePlayback extends PolymerElement {
   bool computeHasExercise([_]) => exercise != null;
 
   @Observe('exercise')
-  onExercise([_]) {
-    _alreadyPlayed = false;
-    reset();
-  }
+  onExercise([_]) => reset();
 
   @property
   bool isPlaying = false;
@@ -164,5 +161,8 @@ class ExercisePlayback extends PolymerElement {
 
   /// Set to 0
   @reflectable
-  reset([_, __]) => set('exerciseInterval', 0);
+  reset([_, __]) {
+    _alreadyPlayed = false;
+    set('exerciseInterval', 0);
+  }
 }

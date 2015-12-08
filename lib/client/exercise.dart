@@ -20,6 +20,7 @@ var log = new Logger('Exercise');
 
 class Exercise extends JsProxy {
   static var one = new Exercise.fromDegrees('One note', '1');
+  static var fifth = new Exercise.fromDegrees('Fifth', '1 5');
   static var triad = new Exercise.fromDegrees('Triad', '1 3 5 3 1');
   static var birdy = new Exercise.fromDegrees('Birdy', '1 5 3 8 5 3 1');
   static var gamme = new Exercise.fromDegrees('Gamme', '1 3 5 8 5 3 1');
