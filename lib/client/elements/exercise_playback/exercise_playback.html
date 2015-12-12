@@ -2,17 +2,18 @@
   <template>
 
     <div hidden$="[[!hasExercise]]">
-      <h1>[[exercise.name]]</h1>
+      <h1>[[exercise.name]] <img src$="data:image/svg+xml;charset=utf8,[[exercise.imageXml]]"></h1>
 
-      Preview? <input type="checkbox" checked$="{{playPreview}}"><br>
+      Preview? <span class="shortcut">P</span> <input type="checkbox" checked="{{playPreview::change}}">
+      Ascending? <span class="shortcut">A</span> <input type="checkbox" checked="{{isAscending::change}}"><br>
 
       <strong>Keynote:</strong> <span>[[exerciseNote]]</span><br>
 
-      <button disabled$="[[isPlaying]]" on-click="play">PLAY (Enter)</button>
-      <button disabled$="[[isPlaying]]" on-click="moveUpAndPlay">Next (Space)</button>
-      <button disabled$="[[isPlaying]]" on-click="moveUp">Up ^^^</button>
-      <button disabled$="[[isPlaying]]" on-click="moveDown">Down vvv</button>
-      <button disabled$="[[isPlaying]]" on-click="reset">Reset</button>
+      <button disabled$="[[isPlaying]]" on-click="play">Play <span class="shortcut">Enter</span></button>
+      <button disabled$="[[isPlaying]]" on-click="moveUpAndPlay">Next <span class="shortcut">Space</span></button>
+      <button disabled$="[[isPlaying]]" on-click="moveUp">Up <span class="shortcut">Up</span></button>
+      <button disabled$="[[isPlaying]]" on-click="moveDown">Down <span class="shortcut">Down</span></button>
+      <button disabled$="[[isPlaying]]" on-click="reset">Reset <span class="shortcut">ESC</span></button>
     </div>
 
   </template>

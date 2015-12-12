@@ -117,6 +117,10 @@ packages:
     description: reflectable
     source: hosted
     version: "0.3.3"
+  sass:
+    description: sass
+    source: hosted
+    version: "0.4.2"
   shelf:
     description: shelf
     source: hosted

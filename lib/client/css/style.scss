@@ -1,0 +1,10 @@
+@import "normalize";
+@import "bourbon/bourbon";
+
+.shortcut {
+  font-family: monospace;
+  color: rgba(0, 0, 100, 0.6);
+  position: relative;
+  top: -0.4em;
+  text-transform: uppercase;
+}

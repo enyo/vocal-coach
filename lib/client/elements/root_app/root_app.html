@@ -1,0 +1,24 @@
+<dom-module id="root-app">
+
+  <link rel="import" type="css" href="root_app.css">
+
+  <template>
+
+    <div class="container">
+      <div class="settings">
+        A4 pitch: <input value="{{a4::input}}">
+        bpm: <input value="{{bpm::input}}">
+      </div>
+
+      <div class="selector">
+        <exercise-selector selected-exercise="{{selectedExercise}}"></exercise-selector>
+      </div>
+
+      <div class="playback">
+        <exercise-playback exercise="[[selectedExercise]]" a4="[[a4]]" bpm="[[bpm]]"></exercise-playback>
+      </div>
+
+    </div>
+
+  </template>
+</dom-module>

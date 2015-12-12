@@ -22,7 +22,13 @@ class ExercisePlayback extends PolymerElement {
       if (exercise != null) {
         switch (event.keyCode) {
           case KeyCode.SPACE:
-            if (_alreadyPlayed) moveUp();
+            if (_alreadyPlayed) {
+              if (isAscending) {
+                moveUp();
+              } else {
+                moveDown();
+              }
+            }
             play();
             break;
           case KeyCode.ENTER:
@@ -30,6 +36,18 @@ class ExercisePlayback extends PolymerElement {
             break;
           case KeyCode.ESC:
             reset();
+            break;
+          case KeyCode.P:
+            set('playPreview', !playPreview);
+            break;
+          case KeyCode.A:
+            set('isAscending', !isAscending);
+            break;
+          case KeyCode.DOWN:
+            moveDown();
+            break;
+          case KeyCode.UP:
+            moveUp();
             break;
         }
       }
@@ -71,6 +89,9 @@ class ExercisePlayback extends PolymerElement {
 
   @property
   bool isPlaying = false;
+
+  @property
+  bool isAscending = true;
 
   /// Defining the semitones relative to a4 to start the exercise from
   @property
@@ -146,7 +167,10 @@ class ExercisePlayback extends PolymerElement {
 
   /// Increase the scale by a half tone
   @reflectable
-  moveUp([_, __]) => set('exerciseInterval', exerciseInterval + 1);
+  moveUp([_, __]) {
+    _alreadyPlayed = false;
+    set('exerciseInterval', exerciseInterval + 1);
+  }
 
   /// Increase the scale by a half tone and play
   @reflectable
@@ -157,7 +181,10 @@ class ExercisePlayback extends PolymerElement {
 
   /// Decrease the scale by a half tone
   @reflectable
-  moveDown([_, __]) => set('exerciseInterval', exerciseInterval - 1);
+  moveDown([_, __]) {
+    _alreadyPlayed = false;
+    set('exerciseInterval', exerciseInterval - 1);
+  }
 
   /// Set to 0
   @reflectable

@@ -18,12 +18,26 @@ class ExerciseSelector extends PolymerElement {
   @property
   List<Exercise> exercises = [Exercise.one, Exercise.fifth, Exercise.triad, Exercise.birdy, Exercise.gamme];
 
+  @property
+  String newExercise = '';
+
+  @reflectable
+  createExercise([_, __]) {
+    add('exercises', new Exercise.fromDegrees('User created exercise', newExercise));
+    set('newExercise', '');
+  }
+
   @Property(notify: true)
   Exercise selectedExercise;
 
+
+
   @reflectable
   selectExercise(Event event, [_]) {
-    var exercise = new DomRepeatModel.fromEvent(event).item;
+    exercises.forEach((exercise) => exercise.isSelected = false);
+    DomRepeatModel repeatModel = new DomRepeatModel.fromEvent(event);
+    Exercise exercise = repeatModel.item;
+    exercise.isSelected = true;
     log.fine('Selected $exercise');
     set('selectedExercise', exercise);
   }

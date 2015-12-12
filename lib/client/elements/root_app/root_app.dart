@@ -4,10 +4,10 @@ library root_app;
 import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
 
-import 'elements/exercise_selector/exercise_selector.dart';
-import 'elements/exercise_playback/exercise_playback.dart';
-
 import 'package:vocal_coach/client/exercise.dart';
+import 'package:vocal_coach/client/elements/exercise_selector/exercise_selector.dart';
+import 'package:vocal_coach/client/elements/exercise_playback/exercise_playback.dart';
+
 
 /// Using [ExerciseSelector], [ExercisePlayback]
 @PolymerRegister('root-app')

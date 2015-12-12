@@ -12,7 +12,10 @@ dependencies:
 
   test: ^0.12.5
 
+  sass: '^0.4.2'
 transformers:
+- sass:
+    executable: sassc
 - web_components:
     entry_points:
       - web/index.html

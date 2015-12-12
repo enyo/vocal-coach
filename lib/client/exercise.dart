@@ -47,20 +47,24 @@ class Exercise extends JsProxy {
   final String name;
 
   @reflectable
+  String get id => name.toLowerCase().replaceAll(' ', '-');
+
+  @reflectable
+  bool isSelected = false;
+
+  @reflectable
   final List<Note> notes;
 
   Exercise(this.name, this.notes) {
     log.finer('Creating exerice "$name" with notes: $notes');
-    var svgElement = getImage();
-    document.body.append(svgElement);
-    svgElement
-      ..style.background = '#fefefe'
-      ..style.margin = '10px';
   }
+
+  @reflectable
+  String get imageXml =>
+      getImage().outerHtml.replaceAll('<', '%3C').replaceAll('>', '%3E').replaceAll('#', '%23').replaceAll('"', "'");
 
   /// Generates an SVG image for this exercise
   SvgElement getImage() {
-    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     var width = 80, height = 44;
 
     var lineOffset = 10,
@@ -70,23 +74,28 @@ class Exercise extends JsProxy {
         ellipseWidth = width / 20,
         ellipseHeight = ellipseWidth / 1.5;
 
-    svg.setAttribute('viewPort', '0 0 $width $height');
-    svg.setAttribute('width', '$width');
-    svg.setAttribute('height', '$height');
+    Element svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+      ..setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+      ..setAttribute('viewPort', '0 0 $width $height')
+      ..setAttribute('width', '$width')
+      ..setAttribute('height', '$height');
 
     var svgNS = svg.namespaceUri;
+
+    var symbol = document.createElementNS(svgNS, 'g');
+    symbol.setAttribute('id', id);
 
     // Draw the lines
     for (var i = 0; i < 5; i++) {
       var lineY = lineOffset + lineDistance * i;
-      var line = document.createElementNS(svgNS, 'line');
-      line.setAttribute('stroke', 'rgba(0, 0, 0, 0.1)');
-      line.setAttribute('stroke-width', '1');
-      line.setAttribute('x1', '0');
-      line.setAttribute('y1', '$lineY');
-      line.setAttribute('x2', '$width');
-      line.setAttribute('y2', '$lineY');
-      svg.append(line);
+      var line = document.createElementNS(svgNS, 'line')
+        ..setAttribute('stroke', 'rgba(0, 0, 0, 0.1)')
+        ..setAttribute('stroke-width', '1')
+        ..setAttribute('x1', '0')
+        ..setAttribute('y1', '$lineY')
+        ..setAttribute('x2', '$width')
+        ..setAttribute('y2', '$lineY');
+      symbol.append(line);
     }
 
     // Draw the notes
@@ -94,17 +103,18 @@ class Exercise extends JsProxy {
       var note = notes[i];
       var noteY = height - (lineOffset + (note.degree + (note.octaves * 7)) * lineDistance / 2),
           noteX = noteOffset + noteDistance * i;
-      var ellipse = document.createElementNS(svgNS, 'ellipse');
-
-      ellipse.setAttribute('stroke', 'rgba(0, 0, 0, 1)');
-      ellipse.setAttribute('stroke-width', '1');
-      ellipse.setAttribute('fill-opacity', '1');
-      ellipse.setAttribute('cx', '$noteX');
-      ellipse.setAttribute('cy', '$noteY');
-      ellipse.setAttribute('rx', '$ellipseWidth');
-      ellipse.setAttribute('ry', '$ellipseHeight');
-      svg.append(ellipse);
+      var ellipse = document.createElementNS(svgNS, 'ellipse')
+        ..setAttribute('stroke', 'rgba(0, 0, 0, 1)')
+        ..setAttribute('stroke-width', '1')
+        ..setAttribute('fill-opacity', '1')
+        ..setAttribute('cx', '$noteX')
+        ..setAttribute('cy', '$noteY')
+        ..setAttribute('rx', '$ellipseWidth')
+        ..setAttribute('ry', '$ellipseHeight');
+      symbol.append(ellipse);
     }
+
+    svg.append(symbol);
 
     return svg;
   }
