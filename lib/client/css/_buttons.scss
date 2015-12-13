@@ -1,0 +1,14 @@
+%button {
+  height: 1.5*$lh;
+  line-height: 1.5*$lh;
+  padding: 0 0.5*$lh;
+  margin-top: 0.25*$lh;
+  margin-bottom: 0.25*$lh;
+  color: $color--button-txt;
+  border: 1px solid $color--button-border;
+  background: $color--button-bg;
+}
+
+button {
+  @extend %button;
+}

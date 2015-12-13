@@ -1,3 +1,4 @@
+@import "../../css/settings";
 
 .exercise-list {
   display: flex;
@@ -26,7 +27,7 @@
   }
   &.selected {
     background: #f0f0f0;
-    border-color: #aaa;
+    border-color: #ddd;
   }
 
   span {
@@ -34,7 +35,15 @@
   }
 }
 
-
 .new-exercise {
   margin-top: 2em;
+  &__header {
+    line-height: 2*$lh;
+    height: 2*$lh;
+    font-size: 1.5rem;
+    font-weight: 200;
+    letter-spacing: 0.08em;
+    margin: $lh 0 0 0;
+    color: rgba(0, 0, 0, 0.6);
+  }
 }

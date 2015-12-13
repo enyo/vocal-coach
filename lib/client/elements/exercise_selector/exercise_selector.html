@@ -5,7 +5,8 @@
   <template>
     <div class="exercise-list">
       <template is="dom-repeat" items="[[exercises]]">
-        <a class$="exercise [[isSelectedClass(item, selectedExercise)]]" href="javascript:undefined;" on-click="selectExercise">
+        <a class$="exercise [[isSelectedClass(item, selectedExercise)]]" href="javascript:undefined;"
+           on-click="selectExercise">
           <span>[[item.name]]</span>
           <img src$="data:image/svg+xml;charset=utf8,[[item.imageXml]]">
         </a>
@@ -13,8 +14,10 @@
     </div>
 
     <form class="new-exercise" action="javascript:undefined;" on-submit="createExercise">
-      New exercise: <input placeholder="Exercise name" type="text" value="{{newExerciseName::input}}"> <input
-        placeholder="Eg: 1 3 5 3 1" type="text" value="{{newExercise::input}}">
+      <h1 class="new-exercise__header">Create new exercise</h1>
+
+      <input placeholder="Exercise name" type="text" value="{{newExerciseName::input}}">
+      <input placeholder="Eg: 1 3 5 3 1" type="text" value="{{newExercise::input}}">
       <button>Create</button>
     </form>
 

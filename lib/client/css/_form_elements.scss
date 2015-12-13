@@ -1,0 +1,13 @@
+%input {
+  height: 1.5*$lh;
+  line-height: 1.5*$lh;
+  margin-top: 0.25*$lh;
+  margin-bottom: 0.25*$lh;
+  padding: 0 0.5*$lh;
+  color: $color--txt;
+}
+
+
+input {
+  @extend %input;
+}

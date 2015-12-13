@@ -6,8 +6,16 @@
 
     <div class="container">
       <div class="settings">
-        A4 pitch: <input value="{{a4::input}}">
-        bpm: <input value="{{bpm::input}}">
+        <div class="option_list">
+          <label>
+            <span>A4 pitch</span>
+            <input value="{{a4::input}}">
+          </label>
+          <label>
+            <span>BPM <span class="shortcut">+/-</span></span>
+            <input value="{{bpm::input}}">
+          </label>
+        </div>
       </div>
 
       <div class="selector">
