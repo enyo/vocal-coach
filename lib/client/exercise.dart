@@ -50,9 +50,6 @@ class Exercise extends JsProxy {
   String get id => name.toLowerCase().replaceAll(' ', '-');
 
   @reflectable
-  bool isSelected = false;
-
-  @reflectable
   final List<Note> notes;
 
   Exercise(this.name, this.notes) {

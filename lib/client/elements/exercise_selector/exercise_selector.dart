@@ -30,14 +30,13 @@ class ExerciseSelector extends PolymerElement {
   @Property(notify: true)
   Exercise selectedExercise;
 
-
+  @reflectable
+  String isSelectedClass(exercise, selectedExercise) => exercise == selectedExercise ? 'selected' : '';
 
   @reflectable
   selectExercise(Event event, [_]) {
-    exercises.forEach((exercise) => exercise.isSelected = false);
     DomRepeatModel repeatModel = new DomRepeatModel.fromEvent(event);
     Exercise exercise = repeatModel.item;
-    exercise.isSelected = true;
     log.fine('Selected $exercise');
     set('selectedExercise', exercise);
   }

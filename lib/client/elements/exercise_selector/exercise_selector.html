@@ -5,8 +5,7 @@
   <template>
     <div class="exercise-list">
       <template is="dom-repeat" items="[[exercises]]">
-        <a class="exercise" href="javascript:undefined;" on-click="selectExercise">
-          <span>[[item.isSelected]]</span>
+        <a class$="exercise [[isSelectedClass(item, selectedExercise)]]" href="javascript:undefined;" on-click="selectExercise">
           <span>[[item.name]]</span>
           <img src$="data:image/svg+xml;charset=utf8,[[item.imageXml]]">
         </a>

@@ -24,6 +24,10 @@
   &:hover {
     background: #f6f6f6;
   }
+  &.selected {
+    background: #f0f0f0;
+    border-color: #aaa;
+  }
 
   span {
     display: block;

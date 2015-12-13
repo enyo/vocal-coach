@@ -73,7 +73,7 @@ class ExercisePlayback extends PolymerElement {
   int decay = 250;
 
   @property
-  bool playPreview = true;
+  bool playPreview = false;
 
   @Property(computed: 'computeHasExercise(exercise)')
   bool hasExercise = false;
