@@ -96,7 +96,7 @@ class ExercisePlayback extends PolymerElement {
 
   /// Whether the player automatically plays the next exercise without needing to press space
   @property
-  bool isContinuous = true;
+  bool isContinuous = false;
 
   /// Defining the semitones relative to a4 to start the exercise from
   @property

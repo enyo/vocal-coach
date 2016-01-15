@@ -20,8 +20,8 @@ curl -sSL https://gist.githubusercontent.com/enyo/3130934c282257f8e6b4/raw/3499a
 SASS_PARENT_FOLDER="/home/rof/sass"
 SASSC_LINK="/home/rof/bin/sassc"
 
-git clone https://github.com/sass/sassc.git "$SASS_PARENT_FOLDER/sassc"
-git clone https://github.com/sass/libsass.git "$SASS_PARENT_FOLDER/libsass"
+git clone https://github.com/sass/sassc.git "$SASS_PARENT_FOLDER/sassc" --branch 3.3.2 --depth 1
+git clone https://github.com/sass/libsass.git "$SASS_PARENT_FOLDER/libsass" --branch 3.3.2 --depth 1
 
 cd "$SASS_PARENT_FOLDER/sassc"
 echo cd "$SASS_PARENT_FOLDER/sassc"
