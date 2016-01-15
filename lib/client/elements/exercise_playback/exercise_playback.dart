@@ -44,6 +44,9 @@ class ExercisePlayback extends PolymerElement {
           case KeyCode.A:
             set('isAscending', !isAscending);
             break;
+          case KeyCode.C:
+            set('isContinuous', !isContinuous);
+            break;
           case KeyCode.DOWN:
             moveDown();
             break;
