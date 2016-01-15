@@ -23,7 +23,8 @@ SASSC_LINK="/home/rof/bin/sassc"
 git clone https://github.com/sass/sassc.git "$SASS_PARENT_FOLDER/sassc"
 git clone https://github.com/sass/libsass.git "$SASS_PARENT_FOLDER/libsass"
 
-cd $SASS_PARENT_FOLDER/sassc
+cd "$SASS_PARENT_FOLDER/sassc"
+echo cd "$SASS_PARENT_FOLDER/sassc"
 SASS_LIBSASS_PATH="$SASS_PARENT_FOLDER/libsass"; make
 
 ln -s "$SASS_PARENT_FOLDER/sassc/bin/sassc" "$SASSC_LINK"
