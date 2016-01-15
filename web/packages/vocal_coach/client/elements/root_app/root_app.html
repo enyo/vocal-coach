@@ -1,0 +1,32 @@
+<dom-module id="root-app">
+
+  <link rel="import" type="css" href="root_app.css">
+
+  <template>
+
+    <div class="container">
+      <div class="settings">
+        <div class="option_list">
+          <label>
+            <span>A4 pitch</span>
+            <input value="{{a4::input}}">
+          </label>
+          <label>
+            <span>BPM <span class="shortcut">+/-</span></span>
+            <input value="{{bpm::input}}">
+          </label>
+        </div>
+      </div>
+
+      <div class="selector">
+        <exercise-selector selected-exercise="{{selectedExercise}}"></exercise-selector>
+      </div>
+
+      <div class="playback">
+        <exercise-playback exercise="[[selectedExercise]]" a4="[[a4]]" bpm="[[bpm]]"></exercise-playback>
+      </div>
+
+    </div>
+
+  </template>
+</dom-module>

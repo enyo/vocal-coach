@@ -1,0 +1,49 @@
+@import "../../css/settings";
+
+.exercise-list {
+  display: flex;
+  margin: -1em 0 0 -1em; // Account for exercise margins
+
+  .exercise {
+    flex: 1;
+    margin: 1em 0 0 1em;
+  }
+}
+
+.exercise {
+  display: inline-block;
+  text-align: center;
+
+  border: 1px solid #eee;
+  background: #fafafa;
+  border-radius: 2px;
+  padding: 1em 0.5em;
+
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    background: #f6f6f6;
+  }
+  &.selected {
+    background: #f0f0f0;
+    border-color: #ddd;
+  }
+
+  span {
+    display: block;
+  }
+}
+
+.new-exercise {
+  margin-top: 2em;
+  &__header {
+    line-height: 2*$lh;
+    height: 2*$lh;
+    font-size: 1.5rem;
+    font-weight: 200;
+    letter-spacing: 0.08em;
+    margin: $lh 0 0 0;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}

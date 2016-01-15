@@ -1,0 +1,44 @@
+@import "normalize";
+@import "bourbon/bourbon";
+
+@import "settings";
+
+
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+
+body, html {
+  font-family: "Helvetica Neue", arial, sans-serif;
+  color: $color--txt;
+  font-size: 16px;
+}
+
+
+.shortcut {
+  font-family: monospace;
+  color: rgba(0, 0, 100, 0.6);
+  position: relative;
+  top: -0.4em;
+  text-transform: uppercase;
+  font-size: 0.6em;
+}
+
+
+.option_list {
+  display: table;
+  label {
+    display: table-row;
+    > span {
+      display: table-cell;
+      padding: 0 0.5em 0.5em 0;
+    }
+    input {
+      display: table-cell;
+    }
+  }
+}
+
+@import "form_elements";
+@import "buttons";
