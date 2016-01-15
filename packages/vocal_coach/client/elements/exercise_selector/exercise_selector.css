@@ -1,0 +1,34 @@
+.exercise-list {
+  display: flex;
+  margin: -1em 0 0 -1em; }
+  .exercise-list .exercise {
+    flex: 1;
+    margin: 1em 0 0 1em; }
+
+.exercise {
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #eee;
+  background: #fafafa;
+  border-radius: 2px;
+  padding: 1em 0.5em;
+  text-decoration: none;
+  color: black; }
+  .exercise:hover {
+    background: #f6f6f6; }
+  .exercise.selected {
+    background: #f0f0f0;
+    border-color: #ddd; }
+  .exercise span {
+    display: block; }
+
+.new-exercise {
+  margin-top: 2em; }
+  .new-exercise__header {
+    line-height: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    font-weight: 200;
+    letter-spacing: 0.08em;
+    margin: 1.5rem 0 0 0;
+    color: rgba(0, 0, 0, 0.6); }
