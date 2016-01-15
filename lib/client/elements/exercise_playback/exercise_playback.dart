@@ -22,17 +22,18 @@ class ExercisePlayback extends PolymerElement {
       if (exercise != null) {
         switch (event.keyCode) {
           case KeyCode.SPACE:
-            if (_alreadyPlayed) {
-              if (isAscending) {
-                moveUp();
-              } else {
-                moveDown();
-              }
-            }
-            play();
+            if (isPlaying && isContinuous) {
+              // Setting _alreadyPlayed to false, so when resuming the exercise it's on the right scale
+              _alreadyPlayed = false;
+              stop();
+            } else playNext();
             break;
           case KeyCode.ENTER:
-            play();
+            if (isPlaying && isContinuous) {
+              // Setting _alreadyPlayed to false, so when resuming the exercise it's on the right scale
+              _alreadyPlayed = false;
+              stop();
+            } else play();
             break;
           case KeyCode.ESC:
             reset();
@@ -93,6 +94,10 @@ class ExercisePlayback extends PolymerElement {
   @property
   bool isAscending = true;
 
+  /// Whether the player automatically plays the next exercise without needing to press space
+  @property
+  bool isContinuous = true;
+
   /// Defining the semitones relative to a4 to start the exercise from
   @property
   int rootInterval = -12;
@@ -107,6 +112,9 @@ class ExercisePlayback extends PolymerElement {
   @reflectable
   String computeExerciseNote([_, __]) => noteNameFromInterval(rootInterval + exerciseInterval);
 
+  /// List of notes that are still scheduled to play
+  List<Timer> _scheduledNotes = [];
+
   @reflectable
   play([_, __]) {
     if (isPlaying) return;
@@ -114,20 +122,36 @@ class ExercisePlayback extends PolymerElement {
     log.info('Playing $exercise');
     set('isPlaying', true);
 
-    var noteLength = 1 / (int.parse('$bpm') / 60);
+    var noteDuration = 1 / (int.parse('$bpm') / 60);
+
+    var notes = new List<Note>.from(exercise.notes);
 
     // TODO: improve this so we simply add a note to the list with double the length
     if (playPreview) {
-      _playNote(exercise.notes.first);
+      var firstNote = notes.first;
+      notes.insert(0,
+          new Note(degree: firstNote.degree, octaves: firstNote.octaves, accidental: firstNote.accidental, length: 2));
     }
 
-    exercise.notes.asMap().forEach((index, note) {
-      if (playPreview) index += 2;
-      var noteTime = (index * noteLength * 1000).round();
-      new Timer(new Duration(milliseconds: noteTime), () => _playNote(note));
+    var getLengthForNotes = (List<Note> notes) => notes.fold(0, (prevValue, note) => prevValue + note.length);;
+
+    notes.asMap().forEach((index, note) {
+      var previousLengths = getLengthForNotes(notes.sublist(0, index));
+      var noteTime = (previousLengths * noteDuration * 1000).round();
+      _scheduledNotes.add(new Timer(new Duration(milliseconds: noteTime), () => _playNote(note)));
     });
 
-    new Timer(new Duration(milliseconds: (1000 * exercise.notes.length * noteLength).round()), stop);
+    _scheduledNotes.add(new Timer(new Duration(milliseconds: (1000 * getLengthForNotes(notes) * noteDuration).round()), () {
+      var _isPlaying = isPlaying; // Saving the value, since stop() overwrites it.
+
+      stop();
+
+      if (isContinuous && _isPlaying) {
+        // If [isPlaying] is false, it means that the player has been stopped by user action and
+        // continuous playback should not be used.
+        _scheduledNotes.add(new Timer(new Duration(milliseconds: (noteDuration * 1000 * 2).round()), playNext));
+      }
+    }));
   }
 
   _playNote(Note note) {
@@ -157,7 +181,25 @@ class ExercisePlayback extends PolymerElement {
   @reflectable
   stop([_, __]) {
     log.info('Stopping $exercise');
+    _scheduledNotes.forEach((timer) => timer.cancel());
+    _scheduledNotes = [];
     set('isPlaying', false);
+  }
+
+  /// Increase or decrease the scale by a half tone and play
+  @reflectable
+  playNext([_, __]) {
+    if (isPlaying) stop();
+    if (_alreadyPlayed) {
+      // We don't want to increase / decrease the scale, if it's
+      // the first time this exercise is beeing played.
+      if (isAscending) {
+        moveUp();
+      } else {
+        moveDown();
+      }
+    }
+    play();
   }
 
   @reflectable
@@ -169,26 +211,22 @@ class ExercisePlayback extends PolymerElement {
   @reflectable
   moveUp([_, __]) {
     _alreadyPlayed = false;
+    stop();
     set('exerciseInterval', exerciseInterval + 1);
-  }
-
-  /// Increase the scale by a half tone and play
-  @reflectable
-  moveUpAndPlay([_, __]) {
-    moveUp();
-    play();
   }
 
   /// Decrease the scale by a half tone
   @reflectable
   moveDown([_, __]) {
     _alreadyPlayed = false;
+    stop();
     set('exerciseInterval', exerciseInterval - 1);
   }
 
   /// Set to 0
   @reflectable
   reset([_, __]) {
+    if (isPlaying) stop();
     _alreadyPlayed = false;
     set('exerciseInterval', 0);
   }

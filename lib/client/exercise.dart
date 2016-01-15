@@ -130,13 +130,24 @@ class Note extends JsProxy {
   @reflectable
   Accidental accidental;
 
-  /// The interval from the tonic in semitones.
-  @reflectable
-  int interval;
-
   /// The length of the note in quarter notes
   @reflectable
   int length;
+
+  /// The interval from the tonic in semitones.
+  @reflectable
+  int get interval {
+    var interval = _semitones[degree];
+
+    if (accidental == Accidental.flat) interval -= 1;
+    if (accidental == Accidental.sharp) interval += 1;
+
+    // Add the necessary semitones for given octave
+    interval += octaves * 12;
+    return interval;
+  }
+
+  Note({this.degree, this.octaves, this.accidental, this.length});
 
   Note.fromDegree(String degreeString, {this.length: 1}) {
     var match = new RegExp(r'^(\d+)(b|\#)?$').firstMatch(degreeString);
@@ -151,13 +162,6 @@ class Note extends JsProxy {
     if (match[2] != null) {
       accidental = match[2] == 'b' ? Accidental.flat : Accidental.sharp;
     }
-    interval = _semitones[degree];
-
-    if (accidental == Accidental.flat) interval -= 1;
-    if (accidental == Accidental.sharp) interval += 1;
-
-    // Add the necessary semitones for given octave
-    interval += octaves * 12;
   }
 
   String toString() => 'Note: ${''.padLeft(length, '♩')} $interval semitones';
