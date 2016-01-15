@@ -18,7 +18,7 @@ git checkout gh-pages
 
 rm -r ./*
 
-mv ../build/* .
+mv ../build/web/* .
 
 git add --all .
 
