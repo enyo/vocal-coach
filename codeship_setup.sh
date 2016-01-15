@@ -16,10 +16,9 @@ unzip -o dartsdk-linux-x64-release.zip -d ~
 
 curl -sSL https://gist.githubusercontent.com/enyo/3130934c282257f8e6b4/raw/3499a0670f7d18dc8278400cbb4ce47f46b39b1c/phantomjs2.sh | bash -s
 
-
 # Install sassc
-SASS_PARENT_FOLDER="/usr/local/lib"
-SASSC_LINK="/usr/local/bin/sassc"
+SASS_PARENT_FOLDER="~/sass"
+SASSC_LINK="~/bin/sassc"
 
 git clone https://github.com/sass/sassc.git "$SASS_PARENT_FOLDER/sassc"
 git clone https://github.com/sass/libsass.git "$SASS_PARENT_FOLDER/libsass"
