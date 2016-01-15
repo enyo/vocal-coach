@@ -25,7 +25,8 @@ git clone https://github.com/sass/libsass.git "$SASS_PARENT_FOLDER/libsass" --br
 
 cd "$SASS_PARENT_FOLDER/sassc"
 echo cd "$SASS_PARENT_FOLDER/sassc"
-SASS_LIBSASS_PATH="$SASS_PARENT_FOLDER/libsass"; make
+
+SASS_LIBSASS_PATH="$SASS_PARENT_FOLDER/libsass" make
 
 ln -s "$SASS_PARENT_FOLDER/sassc/bin/sassc" "$SASSC_LINK"
 
