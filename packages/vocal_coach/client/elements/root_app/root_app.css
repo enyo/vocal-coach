@@ -6,9 +6,8 @@
   margin-bottom: 2em;
   padding-bottom: 2em; }
 
-.settings input {
-  width: 4em;
-  text-align: center; }
-
-.settings, .playback {
+.settings {
   border-bottom: 1px solid #eee; }
+  .settings input {
+    width: 4em;
+    text-align: center; }

@@ -324,6 +324,9 @@ body, html {
   font-family: "Helvetica Neue", arial, sans-serif;
   color: #333;
   font-size: 16px; }
+  @media screen and (max-width: 400px) {
+    body, html {
+      font-size: 14px; } }
 
 body {
   padding: 1rem; }
@@ -346,7 +349,7 @@ body {
     .option_list label input {
       display: table-cell; }
 
-input {
+input:not([type='checkbox']) {
   height: 2.25rem;
   line-height: 2.25rem;
   margin-top: 0.375rem;
@@ -362,10 +365,9 @@ button {
   margin-bottom: 0.375rem;
   color: #496963;
   border: none;
-  background: #F3FDFB;
-  text-transform: uppercase; }
-  button:focus {
-    outline: #ECFF95 2px solid; }
+  background: #F3FDFB; }
+  button:focus, button.focus {
+    outline: #B1DBD4 2px solid; }
   button:hover {
     background-color: #ddf9f4; }
   button[disabled] {

@@ -7155,7 +7155,21 @@ if (Polymer.Bind) {
     </div>
 
   </template>
-</dom-module><dom-module id="exercise-playback">
+</dom-module><dom-module id="option-toggle">
+
+  <link rel="import" type="css" href="packages/vocal_coach/client/elements/option_toggle/option_toggle.css">
+
+  <template>
+
+    <label>
+      <input type="checkbox" checked="{{value::change}}">
+      <span><span>[[label]]</span> <span class="shortcut">[[shortcut]]</span></span>
+    </label>
+
+  </template>
+</dom-module>
+
+<dom-module id="exercise-playback">
 
   <link rel="import" type="css" href="packages/vocal_coach/client/elements/exercise_playback/exercise_playback.css">
 
@@ -7167,29 +7181,20 @@ if (Polymer.Bind) {
 
       <div class="action-buttons">
         <div class="row main-actions">
-          <button disabled$="[[isPlaying]]" on-click="play">Play <span class="shortcut">Enter</span></button>
-          <button disabled$="[[isPlaying]]" on-click="playNext">Next <span class="shortcut">Space</span></button>
+          <button id="play-button" disabled$="[[isPlaying]]" on-click="play">Play <span class="shortcut">Enter</span></button>
+          <button id="play-next-button" disabled$="[[isPlaying]]" on-click="playNext">Next <span class="shortcut">Space</span></button>
         </div>
         <div class="row">
-          <button disabled$="[[isPlaying]]" on-click="moveUp">Up <span class="shortcut">Up</span></button>
-          <button disabled$="[[isPlaying]]" on-click="moveDown">Down <span class="shortcut">Down</span></button>
-          <button on-click="reset">Reset <span class="shortcut">ESC</span></button>
+          <button id="move-up-button" disabled$="[[isPlaying]]" on-click="moveUp">Up <span class="shortcut">Up</span></button>
+          <button id="move-down-button" disabled$="[[isPlaying]]" on-click="moveDown">Down <span class="shortcut">Down</span></button>
+          <button id="reset-button" on-click="reset">Reset <span class="shortcut">ESC</span></button>
         </div>
       </div>
 
-      <div class="option_list">
-        <label>
-          <span>Preview? <span class="shortcut">P</span></span>
-          <input type="checkbox" checked="{{playPreview::change}}">
-        </label>
-        <label>
-          <span>Ascending? <span class="shortcut">A</span></span>
-          <input type="checkbox" checked="{{isAscending::change}}">
-        </label>
-        <label>
-          <span>Continuous? <span class="shortcut">C</span></span>
-          <input type="checkbox" checked="{{isContinuous::change}}">
-        </label>
+      <div class="option-list">
+        <option-toggle value="{{playPreview}}" label="Preview?" shortcut="P"></option-toggle>
+        <option-toggle value="{{isAscending}}" label="Ascending?" shortcut="A"></option-toggle>
+        <option-toggle value="{{isContinuous}}" label="Continuous?" shortcut="C"></option-toggle>
       </div>
 
     </div>
