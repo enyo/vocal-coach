@@ -183,7 +183,7 @@ class ExercisePlayback extends PolymerElement {
       if (isContinuous && _isPlaying) {
         // If [isPlaying] is false, it means that the player has been stopped by user action and
         // continuous playback should not be used.
-        _scheduledNotes.add(new Timer(new Duration(milliseconds: (noteDuration * 1000 * 2).round()), playNext));
+        _scheduledNotes.add(new Timer(new Duration(milliseconds: (noteDuration * 1000 * 3).round()), playNext));
       }
     }));
   }
