@@ -1,0 +1,10 @@
+.new-exercise {
+  margin-top: 2em; }
+  .new-exercise__header {
+    line-height: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    font-weight: 200;
+    letter-spacing: 0.08em;
+    margin: 1.5rem 0 0 0;
+    color: rgba(0, 0, 0, 0.6); }

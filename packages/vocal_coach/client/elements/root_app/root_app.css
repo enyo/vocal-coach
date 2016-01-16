@@ -1,12 +1,14 @@
 .container {
-  width: 800px;
+  max-width: 800px;
   margin: 2em auto; }
 
 .settings, .selector {
   margin-bottom: 2em;
-  padding-bottom: 2em;
-  border-bottom: 1px solid #eee; }
+  padding-bottom: 2em; }
 
 .settings input {
   width: 4em;
   text-align: center; }
+
+.settings, .playback {
+  border-bottom: 1px solid #eee; }

@@ -1,5 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="packages/web_components/webcomponents-lite.min.js"></script>
 
 <link rel="stylesheet" href="packages/vocal_coach/client/css/style.css">
@@ -7146,20 +7147,12 @@ if (Polymer.Bind) {
   <template>
     <div class="exercise-list">
       <template is="dom-repeat" items="[[exercises]]">
-        <a class$="exercise [[isSelectedClass(item, selectedExercise)]]" href="javascript:undefined;" on-click="selectExercise">
-          <span>[[item.name]]</span>
+        <button class$="exercise [[isSelectedClass(item, selectedExercise)]]" on-click="selectExercise">
+          <!--<span>[[item.name]]</span>-->
           <img src$="data:image/svg+xml;charset=utf8,[[item.imageXml]]">
-        </a>
+        </button>
       </template>
     </div>
-
-    <form class="new-exercise" action="javascript:undefined;" on-submit="createExercise">
-      <h1 class="new-exercise__header">Create new exercise</h1>
-
-      <input placeholder="Exercise name" type="text" value="{{newExerciseName::input}}">
-      <input placeholder="Eg: 1 3 5 3 1" type="text" value="{{newExercise::input}}">
-      <button>Create</button>
-    </form>
 
   </template>
 </dom-module><dom-module id="exercise-playback">
@@ -7170,15 +7163,19 @@ if (Polymer.Bind) {
 
     <div hidden$="[[!hasExercise]]">
 
-      <div class="action-buttons">
-        <button disabled$="[[isPlaying]]" on-click="play">Play <span class="shortcut">Enter</span></button>
-        <button disabled$="[[isPlaying]]" on-click="playNext">Next <span class="shortcut">Space</span></button>
-        <button disabled$="[[isPlaying]]" on-click="moveUp">Up <span class="shortcut">Up</span></button>
-        <button disabled$="[[isPlaying]]" on-click="moveDown">Down <span class="shortcut">Down</span></button>
-        <button disabled$="[[isPlaying]]" on-click="reset">Reset <span class="shortcut">ESC</span></button>
-      </div>
-
       <strong>Keynote:</strong> <span>[[exerciseNote]]</span><br>
+
+      <div class="action-buttons">
+        <div class="row main-actions">
+          <button disabled$="[[isPlaying]]" on-click="play">Play <span class="shortcut">Enter</span></button>
+          <button disabled$="[[isPlaying]]" on-click="playNext">Next <span class="shortcut">Space</span></button>
+        </div>
+        <div class="row">
+          <button disabled$="[[isPlaying]]" on-click="moveUp">Up <span class="shortcut">Up</span></button>
+          <button disabled$="[[isPlaying]]" on-click="moveDown">Down <span class="shortcut">Down</span></button>
+          <button on-click="reset">Reset <span class="shortcut">ESC</span></button>
+        </div>
+      </div>
 
       <div class="option_list">
         <label>
@@ -7192,11 +7189,24 @@ if (Polymer.Bind) {
         <label>
           <span>Continuous? <span class="shortcut">C</span></span>
           <input type="checkbox" checked="{{isContinuous::change}}">
-          (Automatically play next scale when exercise is finished)
         </label>
       </div>
 
     </div>
+
+  </template>
+</dom-module><dom-module id="exercise-creator">
+
+  <link rel="import" type="css" href="packages/vocal_coach/client/elements/exercise_creator/exercise_creator.css">
+
+  <template>
+    <form class="new-exercise" action="javascript:undefined;" on-submit="createExercise">
+      <h1 class="new-exercise__header">Create new exercise</h1>
+
+      <input placeholder="Exercise name" type="text" value="{{newExerciseName::input}}">
+      <input placeholder="Eg: 1 3 5 3 1" type="text" value="{{newExercise::input}}">
+      <button>Create</button>
+    </form>
 
   </template>
 </dom-module><dom-module id="root-app">
@@ -7220,11 +7230,15 @@ if (Polymer.Bind) {
       </div>
 
       <div class="selector">
-        <exercise-selector selected-exercise="{{selectedExercise}}"></exercise-selector>
+        <exercise-selector id="exercise-selector" selected-exercise="{{selectedExercise}}"></exercise-selector>
       </div>
 
       <div class="playback">
         <exercise-playback exercise="[[selectedExercise]]" a4="[[a4]]" bpm="[[bpm]]"></exercise-playback>
+      </div>
+
+      <div class="creator">
+        <exercise-creator id="exercise-creator"></exercise-creator>
       </div>
 
     </div>

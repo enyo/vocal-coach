@@ -19,11 +19,15 @@
       </div>
 
       <div class="selector">
-        <exercise-selector selected-exercise="{{selectedExercise}}"></exercise-selector>
+        <exercise-selector id="exercise-selector" selected-exercise="{{selectedExercise}}"></exercise-selector>
       </div>
 
       <div class="playback">
         <exercise-playback exercise="[[selectedExercise]]" a4="[[a4]]" bpm="[[bpm]]"></exercise-playback>
+      </div>
+
+      <div class="creator">
+        <exercise-creator id="exercise-creator"></exercise-creator>
       </div>
 
     </div>
