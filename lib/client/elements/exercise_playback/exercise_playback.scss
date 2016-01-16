@@ -12,7 +12,7 @@
 
     button {
       @include flex(1);
-      min-width: 10em;
+      min-width: 7em;
 
       margin: $lh 0 0 $lh;
       height: 2*$lh;
@@ -20,7 +20,8 @@
 
     &.main-actions {
       button {
-        height: 4*$lh;
+        height: 5*$lh;
+        min-width: 10em;
       }
     }
   }
