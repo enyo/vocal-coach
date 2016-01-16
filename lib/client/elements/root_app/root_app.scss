@@ -10,12 +10,10 @@
 }
 
 .settings {
+  border-bottom: 1px solid #eee;
   input {
     width: 4em;
     text-align: center;
   }
 }
 
-.settings, .playback {
-  border-bottom: 1px solid #eee;
-}

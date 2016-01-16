@@ -9,9 +9,8 @@
   border: none;
   background: $color--button-bg;
 
-  text-transform: uppercase;
-  &:focus {
-    outline: $color--selected 2px solid;
+  &:focus, &.focus {
+    outline: $color--focus-outline 2px solid;
   }
   &:hover {
     background-color: darken($color--button-bg, 5%);

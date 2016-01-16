@@ -9,7 +9,7 @@
   .exercise {
     @include flex(1);
     margin: $lh 0 0 $lh;
-    min-width: 8em;
+    min-width: 7em;
   }
 }
 
@@ -24,6 +24,7 @@
   &.selected {
     background: $color--selected;
     border-color: darken($color--selected, 35%);
+    outline: 2px solid $color--focus-outline;
   }
 
   span {

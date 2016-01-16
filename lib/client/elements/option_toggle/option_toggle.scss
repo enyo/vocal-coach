@@ -1,0 +1,23 @@
+@import "../../css/settings";
+
+::host {
+  display: inline-block;
+}
+
+label {
+  display: inline-block;
+  height: 1.5*$lh;
+  line-height: 1.5*$lh;
+  padding: 0 0.5*$lh;
+  margin-top: 0.25*$lh;
+  margin-bottom: 0.25*$lh;
+  margin-right: 0.25*$lh;
+
+  border: 1px solid $color--focus-outline;
+
+  color: $color--button-txt;
+
+  input {
+    margin-right: 0.5em;
+  }
+}

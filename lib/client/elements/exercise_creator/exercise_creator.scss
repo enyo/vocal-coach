@@ -2,7 +2,7 @@
 @import "../../css/bourbon/bourbon";
 
 .new-exercise {
-  margin-top: 2em;
+  margin-top: 3*$lh;
   &__header {
     line-height: 2*$lh;
     height: 2*$lh;

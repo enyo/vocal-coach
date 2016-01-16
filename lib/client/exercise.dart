@@ -67,7 +67,7 @@ class Exercise extends JsProxy {
         lineDistance = (height - lineOffset * 2) / 4,
         noteOffset = 15,
         noteDistance = notes.length == 1 ? 0 : (width - noteOffset * 2) / (notes.length - 1),
-        ellipseWidth = width / 20,
+        ellipseWidth = width / 30,
         ellipseHeight = ellipseWidth / 1.5;
 
     Element svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")

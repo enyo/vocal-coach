@@ -11,14 +11,26 @@ import 'package:logging/logging.dart';
 
 import 'package:vocal_coach/client/exercise.dart';
 import 'package:vocal_coach/client/utils.dart';
+import 'package:vocal_coach/client/elements/option_toggle/option_toggle.dart';
 
 // create web audio api context
 AudioContext audioCtx = new AudioContext();
+
+Map<HtmlElement, Timer> _focusFlashTimers = {};
 
 @PolymerRegister('exercise-playback')
 class ExercisePlayback extends PolymerElement {
   ExercisePlayback.created() : super.created() {
     document.onKeyUp.listen((KeyboardEvent event) {
+      var flashFocus = (HtmlElement element) {
+        if (_focusFlashTimers.containsKey(element)) {
+          _focusFlashTimers[element].cancel();
+        }
+        document.activeElement.blur();
+        element.classes.add('focus');
+        _focusFlashTimers[element] = new Timer(new Duration(milliseconds: 500), () => element.classes.remove('focus'));
+      };
+
       if (exercise != null) {
         var acted = false;
         switch (event.keyCode) {
@@ -28,6 +40,7 @@ class ExercisePlayback extends PolymerElement {
               _alreadyPlayed = false;
               stop();
             } else playNext();
+            flashFocus($['play-next-button']);
             acted = true;
             break;
           case KeyCode.ENTER:
@@ -36,10 +49,12 @@ class ExercisePlayback extends PolymerElement {
               _alreadyPlayed = false;
               stop();
             } else play();
+            flashFocus($['play-button']);
             acted = true;
             break;
           case KeyCode.ESC:
             reset();
+            flashFocus($['reset-button']);
             acted = true;
             break;
           case KeyCode.P:
@@ -56,10 +71,12 @@ class ExercisePlayback extends PolymerElement {
             break;
           case KeyCode.DOWN:
             moveDown();
+            flashFocus($['move-down-button']);
             acted = true;
             break;
           case KeyCode.UP:
             moveUp();
+            flashFocus($['move-up-button']);
             acted = true;
             break;
         }
@@ -148,7 +165,8 @@ class ExercisePlayback extends PolymerElement {
           new Note(degree: firstNote.degree, octaves: firstNote.octaves, accidental: firstNote.accidental, length: 2));
     }
 
-    var getLengthForNotes = (List<Note> notes) => notes.fold(0, (prevValue, note) => prevValue + note.length);;
+    var getLengthForNotes = (List<Note> notes) => notes.fold(0, (prevValue, note) => prevValue + note.length);
+    ;
 
     notes.asMap().forEach((index, note) {
       var previousLengths = getLengthForNotes(notes.sublist(0, index));
@@ -156,7 +174,8 @@ class ExercisePlayback extends PolymerElement {
       _scheduledNotes.add(new Timer(new Duration(milliseconds: noteTime), () => _playNote(note)));
     });
 
-    _scheduledNotes.add(new Timer(new Duration(milliseconds: (1000 * getLengthForNotes(notes) * noteDuration).round()), () {
+    _scheduledNotes
+        .add(new Timer(new Duration(milliseconds: (1000 * getLengthForNotes(notes) * noteDuration).round()), () {
       var _isPlaying = isPlaying; // Saving the value, since stop() overwrites it.
 
       stop();
