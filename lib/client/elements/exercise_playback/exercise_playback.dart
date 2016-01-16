@@ -162,7 +162,7 @@ class ExercisePlayback extends PolymerElement {
     if (playPreview) {
       var firstNote = notes.first;
       notes.insert(0,
-          new Note(degree: firstNote.degree, octaves: firstNote.octaves, accidental: firstNote.accidental, length: 2));
+          new Note(degree: firstNote.degree, octaves: firstNote.octaves, accidental: firstNote.accidental, length: 4));
     }
 
     var getLengthForNotes = (List<Note> notes) => notes.fold(0, (prevValue, note) => prevValue + note.length);
