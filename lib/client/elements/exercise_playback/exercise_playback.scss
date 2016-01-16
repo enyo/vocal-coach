@@ -1,5 +1,28 @@
+@import "../../css/_settings";
+@import "../../css/bourbon/bourbon";
 
 .action-buttons {
-  margin: 3em 0;
+  margin: $lh 0;
   text-align: center;
+
+  .row {
+    @include display(flex);
+    @include flex-wrap(wrap);
+    margin: (-$lh) 0 $lh (-$lh); // Account for button margins
+
+    button {
+      @include flex(1);
+      min-width: 10em;
+
+      margin: $lh 0 0 $lh;
+      height: 2*$lh;
+    }
+
+    &.main-actions {
+      button {
+        height: 4*$lh;
+      }
+    }
+  }
+
 }

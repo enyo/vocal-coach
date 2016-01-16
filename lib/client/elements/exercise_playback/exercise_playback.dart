@@ -20,6 +20,7 @@ class ExercisePlayback extends PolymerElement {
   ExercisePlayback.created() : super.created() {
     document.onKeyUp.listen((KeyboardEvent event) {
       if (exercise != null) {
+        var acted = false;
         switch (event.keyCode) {
           case KeyCode.SPACE:
             if (isPlaying && isContinuous) {
@@ -27,6 +28,7 @@ class ExercisePlayback extends PolymerElement {
               _alreadyPlayed = false;
               stop();
             } else playNext();
+            acted = true;
             break;
           case KeyCode.ENTER:
             if (isPlaying && isContinuous) {
@@ -34,25 +36,35 @@ class ExercisePlayback extends PolymerElement {
               _alreadyPlayed = false;
               stop();
             } else play();
+            acted = true;
             break;
           case KeyCode.ESC:
             reset();
+            acted = true;
             break;
           case KeyCode.P:
             set('playPreview', !playPreview);
+            acted = true;
             break;
           case KeyCode.A:
             set('isAscending', !isAscending);
+            acted = true;
             break;
           case KeyCode.C:
             set('isContinuous', !isContinuous);
+            acted = true;
             break;
           case KeyCode.DOWN:
             moveDown();
+            acted = true;
             break;
           case KeyCode.UP:
             moveUp();
+            acted = true;
             break;
+        }
+        if (acted) {
+          event.preventDefault();
         }
       }
     });
@@ -229,7 +241,7 @@ class ExercisePlayback extends PolymerElement {
   /// Set to 0
   @reflectable
   reset([_, __]) {
-    if (isPlaying) stop();
+    stop();
     _alreadyPlayed = false;
     set('exerciseInterval', 0);
   }

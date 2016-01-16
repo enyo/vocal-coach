@@ -5,8 +5,20 @@
   margin-top: 0.25*$lh;
   margin-bottom: 0.25*$lh;
   color: $color--button-txt;
-  border: 1px solid $color--button-border;
+  //border: 1px solid $color--button-border;
+  border: none;
   background: $color--button-bg;
+
+  text-transform: uppercase;
+  &:focus {
+    outline: $color--selected 2px solid;
+  }
+  &:hover {
+    background-color: darken($color--button-bg, 5%);
+  }
+  &[disabled] {
+    color: rgba($color--button-txt, 0.5);
+  }
 }
 
 button {

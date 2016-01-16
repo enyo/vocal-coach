@@ -1,0 +1,15 @@
+@import "../../css/settings";
+@import "../../css/bourbon/bourbon";
+
+.new-exercise {
+  margin-top: 2em;
+  &__header {
+    line-height: 2*$lh;
+    height: 2*$lh;
+    font-size: 1.5rem;
+    font-weight: 200;
+    letter-spacing: 0.08em;
+    margin: $lh 0 0 0;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}

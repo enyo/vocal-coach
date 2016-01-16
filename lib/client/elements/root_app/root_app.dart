@@ -9,6 +9,7 @@ import 'package:polymer/polymer.dart';
 import 'package:vocal_coach/client/exercise.dart';
 import 'package:vocal_coach/client/elements/exercise_selector/exercise_selector.dart';
 import 'package:vocal_coach/client/elements/exercise_playback/exercise_playback.dart';
+import 'package:vocal_coach/client/elements/exercise_creator/exercise_creator.dart';
 
 /// Using [ExerciseSelector], [ExercisePlayback]
 @PolymerRegister('root-app')
@@ -32,6 +33,9 @@ class RootApp extends PolymerElement {
   @reflectable
   decreaseBpm([_, __]) => set('bpm', bpm - 10);
 
+  ExerciseCreator get exerciseCreator => $['exercise-creator'];
+  ExerciseSelector get exerciseSelector => $['exercise-selector'];
+
   RootApp.created() : super.created() {
     document.onKeyUp.listen((KeyboardEvent event) {
       switch (event.keyCode) {
@@ -42,6 +46,12 @@ class RootApp extends PolymerElement {
           decreaseBpm();
           break;
       }
+    });
+  }
+
+  ready() {
+    exerciseCreator.addEventListener('new-exercise', (e) {
+      exerciseSelector.add('exercises', new Exercise.fromDegrees('User created exercise', e.detail));
     });
   }
 }

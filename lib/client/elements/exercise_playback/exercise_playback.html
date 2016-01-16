@@ -6,15 +6,19 @@
 
     <div hidden$="[[!hasExercise]]">
 
-      <div class="action-buttons">
-        <button disabled$="[[isPlaying]]" on-click="play">Play <span class="shortcut">Enter</span></button>
-        <button disabled$="[[isPlaying]]" on-click="playNext">Next <span class="shortcut">Space</span></button>
-        <button disabled$="[[isPlaying]]" on-click="moveUp">Up <span class="shortcut">Up</span></button>
-        <button disabled$="[[isPlaying]]" on-click="moveDown">Down <span class="shortcut">Down</span></button>
-        <button disabled$="[[isPlaying]]" on-click="reset">Reset <span class="shortcut">ESC</span></button>
-      </div>
-
       <strong>Keynote:</strong> <span>[[exerciseNote]]</span><br>
+
+      <div class="action-buttons">
+        <div class="row main-actions">
+          <button disabled$="[[isPlaying]]" on-click="play">Play <span class="shortcut">Enter</span></button>
+          <button disabled$="[[isPlaying]]" on-click="playNext">Next <span class="shortcut">Space</span></button>
+        </div>
+        <div class="row">
+          <button disabled$="[[isPlaying]]" on-click="moveUp">Up <span class="shortcut">Up</span></button>
+          <button disabled$="[[isPlaying]]" on-click="moveDown">Down <span class="shortcut">Down</span></button>
+          <button on-click="reset">Reset <span class="shortcut">ESC</span></button>
+        </div>
+      </div>
 
       <div class="option_list">
         <label>
@@ -28,7 +32,6 @@
         <label>
           <span>Continuous? <span class="shortcut">C</span></span>
           <input type="checkbox" checked="{{isContinuous::change}}">
-          (Automatically play next scale when exercise is finished)
         </label>
       </div>
 
