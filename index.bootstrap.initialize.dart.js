@@ -5611,7 +5611,7 @@ z=this.a
 y=z.aw
 x=J.h(z)
 x.L(z)
-if(z.aZ===!0&&y===!0)z.aK.push(P.bo(P.bH(0,0,0,C.o.b7(this.b*1000*2),0,0),x.gel(z)))}},
+if(z.aZ===!0&&y===!0)z.aK.push(P.bo(P.bH(0,0,0,C.o.b7(this.b*1000*3),0,0),x.gel(z)))}},
 jz:{
 "^":"a:2;a,b",
 $0:function(){var z=this.b
@@ -7570,8 +7570,8 @@ C.aY=H.b(I.p([28,29,30,46,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,
 C.aZ=H.b(I.p([62,63]),[P.j])
 C.U=new T.bi(null,"option-toggle",null)
 C.b_=H.b(I.p([C.U]),[P.d])
-C.b0=H.b(I.p([6,7,8,9,47,48,49]),[P.j])
 C.b1=H.b(I.p([28,29,30,46,105,106,107]),[P.j])
+C.b0=H.b(I.p([6,7,8,9,47,48,49]),[P.j])
 C.b2=H.b(I.p([13,14,15,16,17,18,19,20,21,22,23,67,68,69,70,71,72,73,74,75,76]),[P.j])
 C.bs=new D.bj(!1,null,!1,null)
 C.i=H.b(I.p([C.bs]),[P.d])
@@ -7588,8 +7588,8 @@ C.S=new T.bi(null,"root-app",null)
 C.b7=H.b(I.p([C.S]),[P.d])
 C.b8=H.b(I.p([28,29,30,46,47,48,49,50,51,52,53,54,55,56,57]),[P.j])
 C.c=H.b(I.p([]),[P.d])
-C.e=I.p([])
 C.b=H.b(I.p([]),[P.j])
+C.e=I.p([])
 C.N=H.b(I.p([C.a]),[P.d])
 C.R=new T.bi(null,"exercise-creator",null)
 C.ba=H.b(I.p([C.R]),[P.d])
@@ -7630,9 +7630,9 @@ C.bi=H.b(I.p([2,3,4,5,37]),[P.j])
 C.bj=H.b(I.p([38,39,40,41,42,43,44,45,37]),[P.j])
 C.bk=new H.et([1,0,2,2,3,4,4,5,5,7,6,9,7,11])
 C.bl=new H.et([0,"Accidental.flat",1,"Accidental.sharp"])
+C.l=new H.ec(0,{},C.e)
 C.b9=H.b(I.p([]),[P.bn])
 C.P=H.b(new H.ec(0,{},C.b9),[P.bn,null])
-C.l=new H.ec(0,{},C.e)
 C.bx=new H.dr("call")
 C.W=H.r("cX")
 C.bA=H.r("q7")
