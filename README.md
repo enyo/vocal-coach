@@ -1,3 +1,7 @@
+# DEPRECATED!
+
+This project has moved to [GitLab](https://gitlab.com/meno/vocal-coach) and has been rewritten to Angular 2.
+
 # Vocal Coach
 
 [ ![Codeship Status for enyo/vocal-coach](https://codeship.com/projects/61555d90-9e01-0133-5a60-1a74f7994c2d/status?branch=master)](https://codeship.com/projects/127679)
