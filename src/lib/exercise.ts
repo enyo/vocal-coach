@@ -44,5 +44,8 @@ if (import.meta.vitest) {
     expect(exercise.name).toBe('Fifth')
     expect(exercise.notes).toHaveLength(2)
     expect(exercise.toString()).toBe('Fifth 1 5')
+
+    exercise = new Exercise('Diminished fifth', '1 5b')
+    expect(exercise.toString()).toBe('Diminished fifth 1 5b')
   })
 }

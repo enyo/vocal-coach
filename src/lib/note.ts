@@ -9,6 +9,8 @@ const _semitones = {
   7: 11, // Leading tone
 }
 
+const _notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+
 type Accidental = '#' | 'b'
 
 export class Note {
@@ -19,6 +21,16 @@ export class Note {
   octave: number
 
   accidental: null | Accidental = null
+
+  /// Returns the note in given scale.
+  /// The scale is represented as semitons starting at C4 (or c'). So a scale value of
+  /// 2 means D1.
+  getNote = (scale: number): string => {
+    const scaleInterval = this.interval + scale
+    const note = _notes[(scaleInterval + 12 * 5) % 12]
+    const octave = Math.floor(scaleInterval / 12)
+    return `${note}${octave + 4}`
+  }
 
   /// The interval from the tonic in semitones.
   get interval(): number {
@@ -95,5 +107,19 @@ if (import.meta.vitest) {
     expect(`${new Note('4b')}`).toBe('4b')
     expect(`${new Note('8')}`).toBe('8')
     expect(`${new Note('12#')}`).toBe('12#')
+  })
+  it('translates to note string', () => {
+    expect(new Note('1').getNote(0)).toBe('C4')
+    expect(new Note('3').getNote(0)).toBe('E4')
+    expect(new Note('5').getNote(0)).toBe('G4')
+    expect(new Note('5b').getNote(0)).toBe('F#4')
+    expect(new Note('4').getNote(0)).toBe('F4')
+    expect(new Note('4b').getNote(0)).toBe('E4')
+    expect(new Note('8').getNote(0)).toBe('C5')
+    expect(new Note('15').getNote(0)).toBe('C6')
+    expect(new Note('14').getNote(0)).toBe('B5')
+    expect(new Note('14#').getNote(0)).toBe('C6')
+    expect(new Note('1').getNote(-12)).toBe('C3')
+    expect(new Note('3').getNote(-12)).toBe('E3')
   })
 }
