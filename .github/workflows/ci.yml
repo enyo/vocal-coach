@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    timeout-minutes: 10
+    # We're running on ubuntu-latest, nothing special
+    runs-on: ubuntu-latest
+    steps:
+      # As usual, we simply checkout the project
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: pnpm/action-setup@v2.1.0
+        with:
+          version: 6.0.2
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run checks
+        run: pnpm run check
+
+      - name: Test site
+        run: pnpm run test
+
+      - name: Build site
+        id: build
+        run: pnpm run build
+
+      # This seems to be the simplest way to publish to a separate branch.
+      - name: Deploy
+        # Only run if merged to main.
+        if: steps.build.outcome == 'success' && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./build
+          # cname: vocal-coach.yesmeno.com
