@@ -6,34 +6,49 @@
 
   import * as Tone from 'tone'
 
-  let synth: Tone.Synth | undefined
+  let sampler: Tone.Sampler | undefined
+
+  let tempo = 120
 
   let exerciseString = '1 3 5 8 5 3 1'
   let scale = 0
   $: scaleNote = new Note('1').getNote(scale)
   let preview = false
 
+  $: {
+    Tone.Transport.bpm?.setValueAtTime(tempo, Tone.now())
+  }
+
   onMount(() => {
-    return () => synth?.dispose()
+    sampler = new Tone.Sampler({
+      urls: {
+        A4: 'A4.mp3',
+        C4: 'C4.mp3',
+        'D#4': 'Ds4.mp3',
+        'F#4': 'Fs4.mp3',
+      },
+      baseUrl: 'https://tonejs.github.io/audio/salamander/',
+      onload: () => {
+        Tone.Transport.bpm.setValueAtTime(tempo, Tone.now())
+        console.log('loaded')
+      },
+    }).toDestination()
+    return () => sampler.dispose()
   })
 
   const play = () => {
-    synth?.dispose()
-    synth = new Tone.Synth().toDestination()
     const now = Tone.now()
     const time = Tone.Time('8n').toSeconds()
-
-    Tone.Transport.bpm.setValueAtTime(120, now)
 
     const exercise = new Exercise('Triad', exerciseString)
 
     if (preview) {
-      synth.triggerAttackRelease(exercise.notes[0].getNote(scale), '8n', now)
+      sampler.triggerAttackRelease(exercise.notes[0].getNote(scale), '4n', now)
     }
     exercise.notes.forEach((note, i) => {
-      synth.triggerAttackRelease(
+      sampler.triggerAttackRelease(
         note.getNote(scale),
-        '8n',
+        '4n',
         now + time * (i + (preview ? 2 : 0)),
       )
     })
@@ -76,3 +91,6 @@ Preview: <input type="checkbox" bind:checked={preview} />
   <button on:click={() => (exerciseString = exercises[name])}>{name}</button>
 {/each}
 <!-- <a on:click|preventDefault={}></a> -->
+<br />
+Tempo:
+<input type="text" bind:value={tempo} /> bpm
