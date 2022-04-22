@@ -1,11 +1,3 @@
-// vite.config.ts
-import { defineConfig } from 'vitest/config'
+import { extractFromSvelteConfig } from 'vitest-svelte-kit'
 
-export default defineConfig({
-  define: {
-    'import.meta.vitest': 'undefined',
-  },
-  test: {
-    includeSource: ['src/**/*.{js,ts}'],
-  },
-})
+export default extractFromSvelteConfig()
